@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Library JS Objects</title>
+</head>
+
+<body>
+    <h1>Odin Project Library JS Objects/Constructors</h1>
+    <button id="new-book-btn">New Book</button>
+    <div class="new__book--popup">
+        <form action="" method="post" id="book__form">
+            <div>
+                <label for="title">Title: </label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label for="author">Author: </label>
+                <input type="text" id="author" name="author" required>
+            </div>
+            <div>
+                <label for="pages">Number Of Pages: </label>
+                <input type="number" id="pages" name="pages">
+            </div>
+            <fieldset>
+                <legend>Read Status</legend>
+                <div>
+                    <input type="radio" name="read_status" id="Not_read" value="Not Read Yet" checked>
+                    <label for="">Not Read Yet</label>
+                </div>
+                <div>
+                    <input type="radio" name="read_status" id="read" value="Read">
+                    <label for="">Read</label>
+                </div>
+            </fieldset>
+            <div>
+                <input type="submit" value="Add Book to Library" id="form_submit_btn">
+            </div>
+        </form>
+        <button id="close_popup_btn">Close</button>
+    </div>
+    <div class="library__container">
+
+    </div>
+</body>
+<script src="./app.js"></script>
+
+</html>
