@@ -42,6 +42,11 @@ const bookForm = document.getElementById('book__form')
 bookForm.addEventListener('submit', (e) => myLibrary.addBookToLibrary(e))
 
 class Book {
+    static createBookCard(html) {
+        const template = document.createElement('template')
+        template.innerHTML = html.trim()
+        return template.content.firstElementChild;
+    }
     constructor(title, author, pages, read) {
         this.title = title;
         this.author = author;
@@ -53,25 +58,23 @@ class Book {
         this.addBookToContainer()
         Library.popUpForm()
     }
+
     addBookToContainer() {
-        const bookCard = libraryContainer.appendChild(document.createElement('div'));
-        bookCard.classList.add('book__card')
-        bookCard.dataset.index = myLibrary.libArray.indexOf(this)
-        bookCard.appendChild(document.createElement('h1'))
-        bookCard.children[0].textContent = this.title;
-        bookCard.appendChild(document.createElement('h2'))
-        bookCard.children[1].textContent = this.author;
-        bookCard.appendChild(document.createElement('p'))
-        bookCard.children[2].textContent = this.pages;
-        bookCard.appendChild(document.createElement('p'))
-        bookCard.children[3].textContent = this.read;
-        bookCard.appendChild(document.createElement('button'))
-        bookCard.children[4].textContent = 'Change Status';
-        bookCard.children[4].addEventListener('click', (e) => myLibrary.libArray[e.target.parentNode.dataset.index].changeRead())
-        bookCard.appendChild(document.createElement('button'))
-        bookCard.children[5].textContent = 'Delete';
-        bookCard.children[5].addEventListener('click', (e) => myLibrary.libArray[e.target.parentNode.dataset.index].removeBook());
+        const bookCardHtml = Book.createBookCard(`<div class="book__card" data-index="${myLibrary.libArray.indexOf(this)}">
+            <h1>${this.title}</h1>
+            <h2>${this.author}</h2>
+            <p>${this.pages}</p>
+            <p>${this.read}</p>
+            <button class="change-read-btn">Change Status</button>
+            <button class="delete-btn">Delete</button>
+            </div>`);
+        libraryContainer.appendChild(bookCardHtml.cloneNode(true))
+        let cardElement = libraryContainer.querySelector(`[data-index="${myLibrary.libArray.indexOf(this)}"]`);
+        cardElement.querySelector('.change-read-btn').addEventListener('click', (e) => myLibrary.libArray[e.target.parentNode.dataset.index].changeRead())
+        cardElement.querySelector('.delete-btn').addEventListener('click', (e) => myLibrary.libArray[e.target.parentNode.dataset.index].removeBook());
+
     }
+
     removeBook() {
         myLibrary.libArray.splice(myLibrary.libArray.indexOf(this), 1);
         Library.redrawDOM()
