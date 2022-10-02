@@ -64,7 +64,7 @@ class Book {
             <h1>${this.title}</h1>
             <h2>${this.author}</h2>
             <p>${this.pages}</p>
-            <p>${this.read}</p>
+            <p class='read-status'>${this.read}</p>
             <button class="change-read-btn">Change Status</button>
             <button class="delete-btn">Delete</button>
             </div>`);
@@ -88,7 +88,8 @@ class Book {
                 this.read = 'Read'
                 break;
         }
-        Library.redrawDOM()
+        let cardElement = libraryContainer.querySelector(`[data-index="${myLibrary.libArray.indexOf(this)}"]`)
+        cardElement.querySelector('.read-status').textContent = this.read
 
     };
 
