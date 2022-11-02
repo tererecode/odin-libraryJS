@@ -5,8 +5,33 @@ class Library {
     this.libArray = libArray;
   }
   // Fires on form submit
+  validateInputs(event) {
+    const errorMessage = document.querySelector(".error-hint");
+    errorMessage.textContent = "";
+    event.target[0].classList.remove("invalid");
+    event.target[1].classList.remove("invalid");
+    if (event.target[0].validity.valueMissing) {
+      errorMessage.textContent = "Title and Author are required";
+      event.target[0].classList.add("invalid");
+    }
+    if (event.target[1].validity.valueMissing) {
+      errorMessage.textContent = "Title and Author are required";
+      event.target[1].classList.add("invalid");
+    }
+    if (
+      event.target[0].validity.valueMissing ||
+      event.target[1].validity.valueMissing
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   addBookToLibrary(event) {
     event.preventDefault();
+    let validStatus = this.validateInputs(event);
+    if (!validStatus) return;
     let bookTitle = document.getElementById("title").value;
     let bookAuthor = document.getElementById("author").value;
     let bookPages = document.getElementById("pages").value;
